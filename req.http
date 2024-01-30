@@ -1,0 +1,23 @@
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "name":"sabrina",
+    "email":"nmuhamadfajar04@gmail.com",
+    "phone_number": "08121251229",
+    "password":"sabrina123",
+    "confirm_password":"sabrina123"
+}
+
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email":"nmuhamadfajar04@gmail.com",
+    "password":"sabrina123"
+}
+
+###
+GET http://localhost:5000/api/
