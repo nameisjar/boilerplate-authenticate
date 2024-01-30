@@ -9,6 +9,7 @@ const {
   googleOauth2,
 } = require("../controllers/auth.controller");
 const { authorizationHeader, authorizationQuery } = require("../middlewares/auth");
+const passport = require('../libs/passport');
 
 const auth = Router();
 
@@ -23,7 +24,7 @@ auth.get('/google',
 );
 auth.get('/google/callback',
     passport.authenticate('google', {
-        failureRedirect: '/api/v1/auth/google',
+        failureRedirect: '/api/auth/google',
         session: false
     }),
     googleOauth2
