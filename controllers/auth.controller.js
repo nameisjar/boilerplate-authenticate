@@ -26,6 +26,14 @@ const register = async (req, res, next) => {
     const existingUser = await queryUserByEmail(email);
 
     if (existingUser) {
+      if (existingUser.googleid) {
+        return res.status(400).json({
+          status: false,
+          message: "Bad Request",
+          error: "Anda sudah terdaftar dengan google",
+        });
+      }
+
       return res.status(400).json({
         status: false,
         message: "Bad Request",
@@ -80,6 +88,14 @@ const login = async (req, res, next) => {
       });
     }
 
+    if(!user.password && user.googleid) {
+      return res.status(400).json({
+        status: false,
+        message: "Bad Request",
+        error: "Anda telah terdaftar dengan google, silahkan login dengan google",
+      });
+    }
+
     if (!user.is_verified) {
       return res.status(400).json({
         status: false,
@@ -117,6 +133,8 @@ const login = async (req, res, next) => {
           name: user.name,
           email: user.email,
           role: user.role,
+          is_verified: user.is_verified,
+          googleid: user.googleid,
           created_at: user.created_at,
         },
         token,
@@ -269,8 +287,17 @@ const verifyUser = async (req, res, next) => {
   }
 };
 
-const googleOauth2 = (req, res) => {
+const googleOauth2 = async (req, res) => {
   let token = jwt.sign({ id: req.user.id }, JWT_SECRET);
+
+  await prisma.user.update({
+      where: {
+          id: req.user.id
+      },
+      data: {
+          is_verified: true
+      }
+  })
 
   return res.status(200).json({
       status: true,

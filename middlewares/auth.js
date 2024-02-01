@@ -38,6 +38,7 @@ const authorizationHeader = (req, res, next) => {
                 email: true,
                 role: true,
                 is_verified: true,
+                googleid: true,
                 profile: {
                     select: {
                         id: true,

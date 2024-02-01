@@ -1,4 +1,4 @@
-POST http://localhost:5000/api/auth/register
+POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:5000/api/auth/login
+POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
@@ -20,4 +20,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/api/
+GET http://localhost:3000/api/auth/authenticated
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ2OTQxZmE0LTI3ODctNDdiOC05MGQ5LWVjNDZhOTc5YTBjZiIsImlhdCI6MTcwNjc0ODAzMH0.h7ba2enKqFQ8E4_ZRODBf31vzrhP3kbEpAji-bzXj58
